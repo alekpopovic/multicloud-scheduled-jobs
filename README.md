@@ -61,7 +61,7 @@ module "scheduled_batch_job" {
   name            = "daily-report"
   vpc_id          = "vpc-xxxxxxxxxxxxxxxxx"
   subnet_ids      = ["subnet-aaaaaaaaaaaaaaaaa", "subnet-bbbbbbbbbbbbbbbbb"]
-  container_image = "123456789012.dkr.ecr.eu-central-1.amazonaws.com/my-batch-job:latest"
+  container_image = "<aws-account-id>.dkr.ecr.eu-central-1.amazonaws.com/my-batch-job:latest"
 
   assign_public_ip    = false
   schedule_expression = "cron(0 3 * * ? *)"

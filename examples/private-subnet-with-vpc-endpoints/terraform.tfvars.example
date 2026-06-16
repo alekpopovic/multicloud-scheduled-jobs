@@ -3,7 +3,7 @@ name                = "scheduled-batch-private"
 vpc_id              = "vpc-xxxxxxxxxxxxxxxxx"
 subnet_ids          = ["subnet-privateaaaaaaaaa", "subnet-privatebbbbbbbbb"]
 route_table_ids     = ["rtb-aaaaaaaaaaaaaaaaa", "rtb-bbbbbbbbbbbbbbbbb"]
-container_image     = "123456789012.dkr.ecr.eu-central-1.amazonaws.com/my-batch-job:latest"
+container_image     = "<aws-account-id>.dkr.ecr.eu-central-1.amazonaws.com/my-batch-job:latest"
 schedule_expression = "cron(0 3 * * ? *)"
 schedule_timezone   = "Europe/Belgrade"
 
