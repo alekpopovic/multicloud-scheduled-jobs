@@ -32,7 +32,7 @@ resource "aws_vpc_security_group_ingress_rule" "endpoints_https" {
 resource "aws_vpc_endpoint" "ecr_api" {
   count = var.create ? 1 : 0
 
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.api"
+  service_name        = "com.amazonaws.${data.aws_region.current.region}.ecr.api"
   vpc_endpoint_type   = "Interface"
   vpc_id              = var.vpc_id
   subnet_ids          = var.subnet_ids
@@ -45,7 +45,7 @@ resource "aws_vpc_endpoint" "ecr_api" {
 resource "aws_vpc_endpoint" "ecr_dkr" {
   count = var.create ? 1 : 0
 
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.dkr"
+  service_name        = "com.amazonaws.${data.aws_region.current.region}.ecr.dkr"
   vpc_endpoint_type   = "Interface"
   vpc_id              = var.vpc_id
   subnet_ids          = var.subnet_ids
@@ -58,7 +58,7 @@ resource "aws_vpc_endpoint" "ecr_dkr" {
 resource "aws_vpc_endpoint" "logs" {
   count = var.create ? 1 : 0
 
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.logs"
+  service_name        = "com.amazonaws.${data.aws_region.current.region}.logs"
   vpc_endpoint_type   = "Interface"
   vpc_id              = var.vpc_id
   subnet_ids          = var.subnet_ids
@@ -71,7 +71,7 @@ resource "aws_vpc_endpoint" "logs" {
 resource "aws_vpc_endpoint" "s3" {
   count = var.create ? 1 : 0
 
-  service_name      = "com.amazonaws.${data.aws_region.current.name}.s3"
+  service_name      = "com.amazonaws.${data.aws_region.current.region}.s3"
   vpc_endpoint_type = "Gateway"
   vpc_id            = var.vpc_id
   route_table_ids   = var.route_table_ids

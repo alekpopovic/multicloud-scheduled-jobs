@@ -1,6 +1,13 @@
 aws_region          = "eu-central-1"
-name                = "example-scheduled-batch-job"
-schedule_expression = "rate(1 day)"
-vpc_id              = "vpc-0123456789abcdef0"
-subnet_ids          = ["subnet-0123456789abcdef0"]
-container_image     = "public.ecr.aws/docker/library/alpine:latest"
+name                = "scheduled-batch-basic"
+vpc_id              = "vpc-xxxxxxxxxxxxxxxxx"
+subnet_ids          = ["subnet-aaaaaaaaaaaaaaaaa", "subnet-bbbbbbbbbbbbbbbbb"]
+container_image     = "123456789012.dkr.ecr.eu-central-1.amazonaws.com/my-batch-job:latest"
+assign_public_ip    = false
+schedule_expression = "cron(0 3 * * ? *)"
+schedule_timezone   = "Europe/Belgrade"
+
+tags = {
+  Project = "scheduled-batch"
+  Env     = "dev"
+}

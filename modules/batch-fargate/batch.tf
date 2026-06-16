@@ -22,10 +22,10 @@ resource "aws_security_group" "batch" {
 }
 
 resource "aws_batch_compute_environment" "fargate" {
-  compute_environment_name = "${var.name}-fargate-ce"
-  type                     = "MANAGED"
-  state                    = "ENABLED"
-  service_role             = aws_iam_role.batch_service.arn
+  name         = "${var.name}-fargate-ce"
+  type         = "MANAGED"
+  state        = "ENABLED"
+  service_role = aws_iam_role.batch_service.arn
 
   compute_resources {
     type               = "FARGATE"
@@ -95,7 +95,7 @@ resource "aws_batch_job_definition" "this" {
       logDriver = "awslogs"
       options = {
         awslogs-group         = aws_cloudwatch_log_group.batch.name
-        awslogs-region        = data.aws_region.current.name
+        awslogs-region        = data.aws_region.current.region
         awslogs-stream-prefix = "batch"
       }
     }

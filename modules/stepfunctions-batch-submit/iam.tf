@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "sfn" {
       "events:DescribeRule"
     ]
     resources = [
-      "arn:${data.aws_partition.current.partition}:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:rule/StepFunctionsGetEventsForBatchJobsRule"
+      "arn:${data.aws_partition.current.partition}:events:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:rule/StepFunctionsGetEventsForBatchJobsRule"
     ]
   }
 }
