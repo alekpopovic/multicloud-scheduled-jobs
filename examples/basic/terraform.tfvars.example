@@ -1,0 +1,6 @@
+aws_region          = "eu-central-1"
+name                = "example-scheduled-batch-job"
+schedule_expression = "rate(1 day)"
+subnet_ids          = ["subnet-0123456789abcdef0"]
+security_group_ids  = ["sg-0123456789abcdef0"]
+container_image     = "public.ecr.aws/docker/library/alpine:latest"

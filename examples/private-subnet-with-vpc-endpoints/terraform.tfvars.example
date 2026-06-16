@@ -1,0 +1,7 @@
+aws_region          = "eu-central-1"
+name                = "example-private-scheduled-batch-job"
+vpc_id              = "vpc-0123456789abcdef0"
+schedule_expression = "rate(1 day)"
+subnet_ids          = ["subnet-0123456789abcdef0", "subnet-abcdef01234567890"]
+security_group_ids  = ["sg-0123456789abcdef0"]
+container_image     = "public.ecr.aws/docker/library/alpine:latest"

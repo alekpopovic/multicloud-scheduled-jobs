@@ -1,0 +1,23 @@
+name: terraform-validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  terraform-validate:
+    name: terraform-validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      # TODO: validate examples/basic once module implementations are complete.
+      # TODO: validate examples/private-subnet-with-vpc-endpoints once module implementations are complete.
