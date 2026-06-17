@@ -1,8 +1,10 @@
-subscription_id     = "<azure-subscription-id>"
+subscription_id     = "00000000-0000-0000-0000-000000000000"
 location            = "westeurope"
+resource_group_name = "rg-scheduled-batch-azure-basic"
 name                = "scheduled-batch-azure-basic"
-resource_group_name = "<azure-resource-group-name>"
-container_image     = "mcr.microsoft.com/azure-cli:latest"
+
+container_image        = "mcr.microsoft.com/azure-cli:latest"
+container_command_line = "/bin/sh -c \"echo Hello from Azure Batch; date; env\""
 
 tags = {
   project = "scheduled-batch"

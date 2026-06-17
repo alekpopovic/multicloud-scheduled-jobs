@@ -1,13 +1,16 @@
-subscription_id     = "<azure-subscription-id>"
+subscription_id     = "00000000-0000-0000-0000-000000000000"
 location            = "westeurope"
+resource_group_name = "rg-scheduled-batch-azure-private"
 name                = "scheduled-batch-azure-private"
-resource_group_name = "<azure-resource-group-name>"
-container_image     = "mcr.microsoft.com/azure-cli:latest"
 
-address_space           = ["10.30.0.0/16"]
-subnet_address_prefixes = ["10.30.1.0/24"]
+container_image        = "mcr.microsoft.com/azure-cli:latest"
+container_command_line = "/bin/sh -c \"echo Hello from private Azure Batch; date; env\""
+
+address_space           = ["10.40.0.0/16"]
+subnet_address_prefixes = ["10.40.1.0/24"]
+create_nat_gateway      = true
 
 tags = {
   project = "scheduled-batch"
-  env     = "dev"
+  env     = "prod"
 }
