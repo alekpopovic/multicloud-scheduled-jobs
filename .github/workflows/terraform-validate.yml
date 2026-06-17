@@ -31,6 +31,8 @@ jobs:
           - examples/aws/private-subnet-with-vpc-endpoints
           - examples/gcp/basic
           - examples/gcp/private-subnet-private-google-access
+          - examples/azure/basic
+          - examples/azure/private-subnet-no-public-ip
           - examples/multicloud-switcher
 
     steps:
