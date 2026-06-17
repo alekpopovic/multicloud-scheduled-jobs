@@ -77,3 +77,33 @@ output "gcp_workflow_executions_uri" {
   description = "GCP Workflows executions URI, or null when AWS is selected."
   value       = module.scheduled_batch_job.gcp_workflow_executions_uri
 }
+
+output "azure_storage_account_name" {
+  description = "Azure storage account name, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_storage_account_name
+}
+
+output "azure_batch_account_name" {
+  description = "Azure Batch account name, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_batch_account_name
+}
+
+output "azure_batch_account_endpoint" {
+  description = "Azure Batch account endpoint, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_batch_account_endpoint
+}
+
+output "azure_batch_pool_name" {
+  description = "Azure Batch pool name, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_batch_pool_name
+}
+
+output "azure_logic_app_name" {
+  description = "Azure Logic App workflow name, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_logic_app_name
+}
+
+output "azure_logic_app_id" {
+  description = "Azure Logic App workflow ID, or null when Azure is not selected."
+  value       = module.scheduled_batch_job.azure_logic_app_id
+}

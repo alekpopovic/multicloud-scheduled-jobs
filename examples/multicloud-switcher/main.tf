@@ -7,6 +7,12 @@ provider "google" {
   region  = try(var.gcp_config.region, "europe-west1")
 }
 
+provider "azurerm" {
+  features {}
+
+  subscription_id = try(var.azure_config.subscription_id, null)
+}
+
 module "scheduled_batch_job" {
   source = "../../modules/multicloud/scheduled-batch-job"
 
@@ -20,8 +26,9 @@ module "scheduled_batch_job" {
   schedule_expression = var.schedule_expression
   schedule_timezone   = var.schedule_timezone
 
-  aws_config = var.aws_config
-  gcp_config = var.gcp_config
+  aws_config   = var.aws_config
+  gcp_config   = var.gcp_config
+  azure_config = var.azure_config
 
   scheduler_input                              = var.scheduler_input
   enable_command_override_from_scheduler_input = var.enable_command_override_from_scheduler_input

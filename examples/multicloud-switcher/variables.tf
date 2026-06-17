@@ -1,11 +1,11 @@
 variable "cloud_provider" {
-  description = "Cloud provider to use. Supported values are aws and gcp."
+  description = "Cloud provider to use. Supported values are aws, gcp, and azure."
   type        = string
   default     = "aws"
 
   validation {
-    condition     = contains(["aws", "gcp"], var.cloud_provider)
-    error_message = "cloud_provider must be either aws or gcp."
+    condition     = contains(["aws", "gcp", "azure"], var.cloud_provider)
+    error_message = "cloud_provider must be aws, gcp, or azure."
   }
 }
 
@@ -94,6 +94,45 @@ variable "gcp_config" {
       "roles/artifactregistry.reader"
     ])
     additional_runtime_roles = optional(set(string), [])
+  })
+  default = {}
+}
+
+variable "azure_config" {
+  description = "Azure-specific configuration used when cloud_provider is azure."
+  type = object({
+    subscription_id                  = optional(string)
+    resource_group_name              = optional(string)
+    location                         = optional(string, "westeurope")
+    storage_account_name             = optional(string)
+    batch_account_name               = optional(string)
+    pool_name                        = optional(string)
+    vm_size                          = optional(string, "STANDARD_D2S_V3")
+    node_agent_sku_id                = optional(string, "batch.node.ubuntu 20.04")
+    target_dedicated_nodes           = optional(number, 0)
+    target_low_priority_nodes        = optional(number, 1)
+    max_tasks_per_node               = optional(number, 1)
+    container_command_line           = optional(string)
+    preload_container_image          = optional(bool, true)
+    create_pool_identity             = optional(bool, true)
+    acr_id                           = optional(string)
+    subnet_id                        = optional(string)
+    public_address_provisioning_type = optional(string, "BatchManaged")
+    recurrence_frequency             = optional(string, "Day")
+    recurrence_interval              = optional(number, 1)
+    recurrence_time_zone             = optional(string, "Central Europe Standard Time")
+    recurrence_hours                 = optional(list(number), [3])
+    recurrence_minutes               = optional(list(number), [0])
+    recurrence_week_days             = optional(list(string), [])
+    start_time                       = optional(string)
+    task_max_wall_clock_time         = optional(string, "PT1H")
+    task_retention_time              = optional(string, "P1D")
+    task_retry_maximum               = optional(number, 0)
+    poll_interval_seconds            = optional(number, 30)
+    max_poll_attempts                = optional(number, 120)
+    delete_job_on_completion         = optional(bool, false)
+    terminate_job_on_task_failure    = optional(bool, true)
+    batch_role_definition_name       = optional(string, "Azure Batch Job Submitter")
   })
   default = {}
 }
