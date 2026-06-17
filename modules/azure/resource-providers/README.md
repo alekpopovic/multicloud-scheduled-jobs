@@ -1,11 +1,29 @@
 # resource-providers
 
-Skeleton module for optional Azure resource provider registration.
+Optional module for registering Azure Resource Provider namespaces required by the Azure Batch and Logic Apps flow.
 
-Future implementation will register provider namespaces required by the Azure scheduled Batch flow:
+The default is `create = false` because the `azurerm` provider can often auto-register providers, and many organizations do not allow Terraform to register resource providers.
 
-```text
-Logic Apps Recurrence Trigger -> Logic Apps Workflow -> Azure Batch REST API -> Azure Batch Pool -> Container Task
+## Usage
+
+```hcl
+module "resource_providers" {
+  source = "../resource-providers"
+
+  create = true
+}
 ```
 
-This module must not create credentials, service principal secrets, or hardcode subscription IDs.
+`subscription_id` is optional. In most cases, provider authentication and subscription selection come from the root `azurerm` provider configuration.
+
+## Manual Registration
+
+If Terraform is not allowed to register providers, use Azure CLI:
+
+```bash
+az provider register --namespace Microsoft.Batch
+az provider register --namespace Microsoft.Logic
+az provider register --namespace Microsoft.ManagedIdentity
+az provider register --namespace Microsoft.Network
+az provider register --namespace Microsoft.Storage
+```
