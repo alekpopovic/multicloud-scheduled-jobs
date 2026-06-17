@@ -3,18 +3,30 @@ variable "project_id" {
   type        = string
 }
 
-variable "network" {
-  description = "VPC network self link or name used by GCP Batch jobs."
+variable "region" {
+  description = "GCP region for the subnet and optional Cloud NAT."
   type        = string
 }
 
-variable "subnetwork" {
-  description = "Subnetwork self link or name used by GCP Batch jobs."
+variable "name" {
+  description = "Name prefix for network resources."
   type        = string
+}
+
+variable "ip_cidr_range" {
+  description = "Primary IPv4 CIDR range for the Batch subnet."
+  type        = string
+  default     = "10.10.0.0/24"
+}
+
+variable "create_cloud_nat" {
+  description = "Whether to create Cloud Router and Cloud NAT for private egress."
+  type        = bool
+  default     = false
 }
 
 variable "labels" {
-  description = "Labels applied to resources that support labels."
+  description = "Labels reserved for resources that support labels."
   type        = map(string)
   default     = {}
 }
