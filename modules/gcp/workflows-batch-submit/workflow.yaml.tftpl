@@ -1,0 +1,75 @@
+main:
+  params: [args]
+  steps:
+    - init:
+        assign:
+          - project_id: $${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - location: "${batch_location}"
+          - execution_id: $${sys.get_env("GOOGLE_CLOUD_WORKFLOW_EXECUTION_ID")}
+          - job_id: $${"${job_id_prefix}-" + text.substring(text.replace_all_regex(execution_id, "[^a-z0-9-]", "-"), 0, 16)}
+          - command: ${container_commands_json}
+          - env_vars: ${environment_variables_json}
+%{ if enable_command_override_from_args ~}
+    - command_override:
+        switch:
+          - condition: $${args != null and map.get(args, "command") != null}
+            assign:
+              - command: $${map.get(args, "command")}
+%{ endif ~}
+    - log_create:
+        call: sys.log
+        args:
+          data: $${"Creating Batch job " + job_id}
+    - create_batch_job:
+        call: googleapis.batch.v1.projects.locations.jobs.create
+        args:
+          parent: $${"projects/" + project_id + "/locations/" + location}
+          jobId: $${job_id}
+          body:
+            taskGroups:
+              - taskSpec:
+                  runnables:
+                    - container:
+                        imageUri: "${container_image}"
+                        commands: $${command}
+                  environment:
+                    variables: $${env_vars}
+                  computeResource:
+                    cpuMilli: ${cpu_milli}
+                    memoryMib: ${memory_mib}
+                  maxRetryCount: ${max_retry_count}
+                  maxRunDuration: "${max_run_duration}"
+                taskCount: ${task_count}
+                parallelism: ${parallelism}
+            allocationPolicy:
+              serviceAccount:
+                email: "${batch_service_account_email}"
+              instances:
+                - policy:
+                    machineType: "${machine_type}"
+                    provisioningModel: "${provisioning_model}"
+              network:
+                networkInterfaces:
+                  - noExternalIpAddress: ${no_external_ip_address}
+%{ if network != null ~}
+                    network: "${network}"
+%{ endif ~}
+%{ if subnetwork != null ~}
+                    subnetwork: "${subnetwork}"
+%{ endif ~}
+            logsPolicy:
+              destination: CLOUD_LOGGING
+            labels: ${batch_labels_json}
+        result: create_result
+%{ if delete_job_on_completion ~}
+    - optional_delete:
+        call: googleapis.batch.v1.projects.locations.jobs.delete
+        args:
+          name: $${"projects/" + project_id + "/locations/" + location + "/jobs/" + job_id}
+        result: delete_result
+%{ endif ~}
+    - return_result:
+        return:
+          job_id: $${job_id}
+          batch_location: $${location}
+          create_result: $${create_result}
