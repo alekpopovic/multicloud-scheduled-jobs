@@ -180,6 +180,44 @@ module "scheduled_batch_job" {
 }
 ```
 
+## CLI Usage
+
+The `cli/` package provides a lightweight Python wrapper around Terraform. It generates a root deployment directory under `deployments/<cloud>/<name>` and then runs Terraform there.
+
+It does not call cloud SDK APIs and does not create or store credentials. AWS, GCP, and Azure credentials come from the standard Terraform provider auth mechanisms.
+
+Install for local development:
+
+```bash
+cd cli
+python -m pip install -e .
+```
+
+Create a placeholder config:
+
+```bash
+scheduled-batch init-config
+```
+
+Render, plan, or create a workload:
+
+```bash
+scheduled-batch render --cloud aws --name daily-import
+scheduled-batch plan --cloud gcp --name daily-import
+scheduled-batch create --cloud azure --name daily-import --yes
+```
+
+Other commands:
+
+```bash
+scheduled-batch destroy --cloud aws --name daily-import --yes
+scheduled-batch outputs --cloud gcp --name daily-import
+scheduled-batch list
+scheduled-batch doctor --cloud azure
+```
+
+Generated `deployments/` directories and local `.scheduled-batch/` config are ignored by `.gitignore`.
+
 ## Makefile Usage
 
 The root `Makefile` is a convenience wrapper for `examples/multicloud-switcher`.

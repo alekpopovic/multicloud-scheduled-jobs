@@ -3,8 +3,12 @@
 *.tfstate.*
 crash.log
 crash.*.log
+__pycache__/
+*.pyc
 *.tfvars
 !*.tfvars.example
+deployments/
+.scheduled-batch/
 override.tf
 override.tf.json
 *_override.tf

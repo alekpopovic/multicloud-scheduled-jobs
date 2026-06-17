@@ -1,0 +1,14 @@
+provider "aws" {
+  region = var.aws_region
+}
+
+provider "google" {
+  project = try(var.gcp_config.project_id, null)
+  region  = try(var.gcp_config.region, "europe-west1")
+}
+
+provider "azurerm" {
+  features {}
+
+  subscription_id = try(var.azure_config.subscription_id, null)
+}

@@ -1,0 +1,27 @@
+output "cloud_provider" {
+  value = module.scheduled_batch_job.cloud_provider
+}
+
+output "scheduler_identifier" {
+  value = module.scheduled_batch_job.scheduler_identifier
+}
+
+output "orchestrator_identifier" {
+  value = module.scheduled_batch_job.orchestrator_identifier
+}
+
+output "batch_runtime_identifier" {
+  value = module.scheduled_batch_job.batch_runtime_identifier
+}
+
+output "aws_state_machine_arn" {
+  value = module.scheduled_batch_job.aws_state_machine_arn
+}
+
+output "gcp_workflow_name" {
+  value = module.scheduled_batch_job.gcp_workflow_name
+}
+
+output "azure_logic_app_name" {
+  value = module.scheduled_batch_job.azure_logic_app_name
+}

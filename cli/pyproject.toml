@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scheduled-batch-cli"
+version = "0.1.0"
+description = "CLI wrapper for multicloud scheduled batch Terraform deployments."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+scheduled-batch = "scheduled_batch_cli.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scheduled_batch_cli*"]
+
+[tool.setuptools.package-data]
+scheduled_batch_cli = ["templates/*.tmpl"]
