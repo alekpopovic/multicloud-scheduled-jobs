@@ -1,0 +1,10 @@
+subscription_id     = "<azure-subscription-id>"
+location            = "westeurope"
+name                = "scheduled-batch-azure-basic"
+resource_group_name = "<azure-resource-group-name>"
+container_image     = "mcr.microsoft.com/azure-cli:latest"
+
+tags = {
+  project = "scheduled-batch"
+  env     = "dev"
+}

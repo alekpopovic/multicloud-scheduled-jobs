@@ -1,0 +1,13 @@
+subscription_id     = "<azure-subscription-id>"
+location            = "westeurope"
+name                = "scheduled-batch-azure-private"
+resource_group_name = "<azure-resource-group-name>"
+container_image     = "mcr.microsoft.com/azure-cli:latest"
+
+address_space           = ["10.30.0.0/16"]
+subnet_address_prefixes = ["10.30.1.0/24"]
+
+tags = {
+  project = "scheduled-batch"
+  env     = "dev"
+}

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains reusable Terraform modules and examples for scheduled container batch jobs on AWS and Google Cloud.
+This repository contains reusable Terraform modules and examples for scheduled container batch jobs on AWS, Google Cloud, and Azure.
 
 AWS flow:
 
@@ -14,6 +14,12 @@ GCP flow:
 
 ```text
 Cloud Scheduler -> Workflows -> Cloud Batch container job
+```
+
+Azure flow:
+
+```text
+Azure Logic Apps Recurrence Trigger -> Azure Logic Apps Workflow -> Azure Batch REST API -> Azure Batch Pool -> Container Task
 ```
 
 The repository also includes a multicloud switcher wrapper that selects the provider implementation with:
@@ -90,9 +96,11 @@ Container Job
 
 - `modules/aws`: AWS building-block modules and the AWS scheduled batch wrapper.
 - `modules/gcp`: GCP building-block modules and the GCP scheduled batch wrapper.
+- `modules/azure`: Azure skeleton modules for Logic Apps, Azure Batch, resource groups, resource providers, and private networking.
 - `modules/multicloud`: Switcher wrapper that delegates to AWS or GCP modules.
 - `examples/aws`: Provider-specific AWS examples.
 - `examples/gcp`: Provider-specific GCP examples.
+- `examples/azure`: Provider-specific Azure skeleton examples.
 - `examples/multicloud-switcher`: Shared-interface example using `cloud_provider`.
 
 ## Usage Options
